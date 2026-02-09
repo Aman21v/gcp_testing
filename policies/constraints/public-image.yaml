@@ -1,0 +1,19 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: allow-only-internal-registries
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    # Optional: Exclude system namespaces if needed
+    excludedNamespaces:
+      - kube-system
+      - gatekeeper-system
+  parameters:
+    repos:
+      # Replace with your specific Google Artifact Registry or GCR paths
+      - "gcr.io/your-project-id/"
+      - "us-central1-docker.pkg.dev/your-project-id/"
