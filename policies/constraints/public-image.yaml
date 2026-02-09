@@ -1,7 +1,7 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sAllowedRepos
 metadata:
-  name: allow-only-internal-registries-new
+  name: allow-only-internal-registries-new-oo
 spec:
   enforcementAction: deny
   match:
