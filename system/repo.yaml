@@ -1,4 +1,4 @@
 apiVersion: configmanagement.gke.io/v1
 kind: Repo
 metadata:
-  name: Aman21v/gcp_testing
+  name: repo
