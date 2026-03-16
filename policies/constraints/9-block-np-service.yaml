@@ -8,5 +8,5 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Service"]
-  excludedNamespaces:
+    excludedNamespaces: # This must be inside the match block
       - "test"
