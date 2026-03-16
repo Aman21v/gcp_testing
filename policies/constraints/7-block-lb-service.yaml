@@ -1,0 +1,11 @@
+# https://github.com/open-policy-agent/gatekeeper-library/blob/master/library/general/block-loadbalancer-services/samples/block-load-balancer/constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sBlockLoadBalancer
+metadata:
+  name: block-load-balancer
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
