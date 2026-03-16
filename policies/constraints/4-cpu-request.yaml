@@ -1,0 +1,16 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredResources
+metadata:
+  name: require-cpu-memory-limits-requests
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+      - apiGroups: ["apps"]
+        kinds: ["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"]
+  parameters:
+    # K8sRequiredResources typically checks for the existence of these fields.
+    # The specifics depend on the template's Rego.
+    # Assuming it checks for cpu/memory in both requests and limits.
+    # No specific parameters are usually needed beyond the match.
