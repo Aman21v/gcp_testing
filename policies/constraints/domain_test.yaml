@@ -1,0 +1,77 @@
+# combined-policy.yaml
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8sallowedhosts
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sAllowedHosts
+      validation:
+        # Schema for the `parameters` field in the Constraint
+        openAPIV3Schema:
+          type: object
+          properties:
+            allowedHosts:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sallowedhosts
+
+        violation[{"msg": msg}] {
+          input.review.kind.kind == "Ingress"
+          ingress := input.review.object
+          rule := ingress.spec.rules[_]
+          not host_allowed(rule.host, input.parameters.allowedHosts)
+          msg := sprintf("Ingress host %v is not allowed. Allowed hosts are %v", [rule.host, input.parameters.allowedHosts])
+        }
+
+        violation[{"msg": msg}] {
+          input.review.kind.kind == "HTTPRoute"
+          route := input.review.object
+          hostname := route.spec.hostnames[_]
+          not host_allowed(hostname, input.parameters.allowedHosts)
+          msg := sprintf("HTTPRoute hostname %v is not allowed. Allowed hosts are %v", [hostname, input.parameters.allowedHosts])
+        }
+
+        host_allowed(host, allowed) {
+          allowed_host := allowed[_]
+          glob_match(allowed_host, host)
+        }
+
+        # glob_match function to handle wildcards
+        glob_match(pattern, str) {
+          # This is a simplified glob matcher.
+          # For a production system, a more robust Rego glob matching function might be needed.
+          pattern_parts := split(pattern, "*")
+          has_wildcard := count(pattern_parts) > 1
+
+          if not has_wildcard {
+            pattern == str
+          } else {
+            startswith(str, pattern_parts[0])
+            endswith(str, pattern_parts[1])
+            # Basic wildcard handling: checks start and end.
+            # Real glob would need to handle multiple wildcards, ?, etc.
+          }
+        }
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedHosts
+metadata:
+  name: allowlist-domains
+spec:
+  match:
+    kinds:
+      - apiGroups: ["networking.k8s.io"]
+        kinds: ["Ingress"]
+      - apiGroups: ["gateway.networking.k8s.io"]
+        kinds: ["HTTPRoute"]
+  parameters:
+    allowedHosts:
+      - "*.example.com"
+      - "trusted-partner.net"
