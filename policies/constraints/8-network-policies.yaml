@@ -12,4 +12,10 @@ spec:
       - apiGroups: [""]
         kinds: ["Pod"]
     # Apply to all namespaces except system ones
-    excludedNamespaces: ["kube-system", "gatekeeper-system", "gke-managed-cim", "gke-connect"]
+    namespaces:
+      - "test"
+      - "default"
+    excludedNamespaces: []
+      # - "kube-system"      # Example: Policy will ignore this
+      # - "gatekeeper-system" # Example: Policy will ignore this
+      # - "config-management-system"
