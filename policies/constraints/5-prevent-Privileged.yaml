@@ -38,8 +38,12 @@ kind: K8sPSSRunAsNonRoot
 metadata:
   name: pss-runasnonroot
 spec:
+  enforcementAction: deny
   match:
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
+    namespaces:
+      - "default"
+      - "test"
     excludedNamespaces: ["kube-system", "gatekeeper-system"]
