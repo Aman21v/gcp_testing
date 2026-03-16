@@ -21,7 +21,7 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Namespace"]
-      - apiGroups: ["apps"]
+      - apiGroups: [""]
         kinds: ["Deployment"]
     namespaces:
       - "test"
