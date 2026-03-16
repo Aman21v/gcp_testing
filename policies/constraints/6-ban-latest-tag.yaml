@@ -6,8 +6,12 @@ spec:
   enforcementAction: deny
   match:
     namespaces:
-      - "default"
       - "test"
+      - "default"
+    excludedNamespaces: []
+      # - "kube-system"      # Example: Policy will ignore this
+      # - "gatekeeper-system" # Example: Policy will ignore this
+      # - "config-management-system"
     kinds:
       - apiGroups: [""]
         kinds: ["Pod"]
