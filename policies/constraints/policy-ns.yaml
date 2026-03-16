@@ -1,13 +1,29 @@
+# apiVersion: constraints.gatekeeper.sh/v1beta1
+# kind: K8sRequiredLabels
+# metadata:
+#   name: namespaces-must-have-owner-label-policy
+# spec:
+#   enforcementAction: deny
+#   match:
+#     kinds:
+#       - apiGroups: [""]
+#         kinds: ["Namespace"]
+#   parameters:
+#     labels:
+#       - key: "owner"
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sRequiredLabels
 metadata:
-  name: namespaces-must-have-owner-label-policy
+  name: deployments-and-namespaces-must-have-org-labels
 spec:
-  enforcementAction: deny
   match:
     kinds:
       - apiGroups: [""]
         kinds: ["Namespace"]
+      - apiGroups: ["apps"]
+        kinds: ["Deployment"]
+    namespaces:
+      - "test"
+      - "default"
   parameters:
-    labels:
-      - key: "owner"
+    labels: ["team-id", "cost-center", "env"]
