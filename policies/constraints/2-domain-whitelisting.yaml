@@ -42,3 +42,19 @@ spec:
           domain := domains[_]
           endswith(host, trim_prefix(domain, "*"))
         }
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedDomain
+metadata:
+  name: allow-corporate-domains
+spec:
+  match:
+    kinds:
+      - apiGroups: ["networking.k8s.io"]
+        kinds: ["Ingress"]
+      - apiGroups: ["gateway.networking.k8s.io"]
+        kinds: ["HTTPRoute"]
+  parameters:
+    domains:
+      - "*.mycompany.com"
+      - "internal-service.local"
