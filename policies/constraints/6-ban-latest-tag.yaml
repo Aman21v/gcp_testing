@@ -1,0 +1,17 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sDisallowedTags
+metadata:
+  name: ban-latest-image-tags
+spec:
+  enforcementAction: deny
+  match:
+    namespaces:
+      - "default"
+      - "test"
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+      - apiGroups: ["apps"]
+        kinds: ["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet", "Job", "CronJob"]
+  parameters:
+    tags: ["latest"]
