@@ -9,8 +9,5 @@ spec:
         kinds: ["Pod"]
       - apiGroups: ["apps"]
         kinds: ["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"]
-  parameters:
-    # K8sRequiredResources typically checks for the existence of these fields.
-    # The specifics depend on the template's Rego.
-    # Assuming it checks for cpu/memory in both requests and limits.
-    # No specific parameters are usually needed beyond the match.
+  # Use an empty object if the template doesn't require specific keys
+  parameters: {}
