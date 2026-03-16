@@ -9,3 +9,10 @@ spec:
     kinds:
       - apiGroups: [""]
         kinds: ["Service"]
+    namespaces:
+      - "test"
+      - "default"
+    excludedNamespaces: []
+      # - "kube-system"      # Example: Policy will ignore this
+      # - "gatekeeper-system" # Example: Policy will ignore this
+      # - "config-management-system"
