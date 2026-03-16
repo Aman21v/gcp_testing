@@ -14,24 +14,24 @@ spec:
       - "test"
     excludedNamespaces: ["kube-system", "gatekeeper-system"]
 ---
-## Constraint: Disallow HostPath Volumes (k8spsphostfilesystem)
-apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: K8sPSPHostFileSystem
-metadata:
-  name: psp-hostfilesystem
-spec:
-  enforcementAction: deny
-  match:
-    kinds:
-      - apiGroups: [""]
-        kinds: ["Pod"]
-    namespaces:
-      - "default"
-      - "test"
-    excludedNamespaces: ["kube-system", "gatekeeper-system"]
-  parameters:
-    readOnly: false
----
+# ## Constraint: Disallow HostPath Volumes (k8spsphostfilesystem)
+# apiVersion: constraints.gatekeeper.sh/v1beta1
+# kind: K8sPSPHostFileSystem
+# metadata:
+#   name: psp-hostfilesystem
+# spec:
+#   enforcementAction: deny
+#   match:
+#     kinds:
+#       - apiGroups: [""]
+#         kinds: ["Pod"]
+#     namespaces:
+#       - "default"
+#       - "test"
+#     excludedNamespaces: ["kube-system", "gatekeeper-system"]
+#   parameters:
+#     readOnly: false
+# ---
 ## Constraint: Require Running as Non-Root (k8spssrunasnonroot)
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sPSSRunAsNonRoot
