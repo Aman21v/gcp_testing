@@ -10,5 +10,12 @@ spec:
         kinds: ["Pod"]
       - apiGroups: ["apps"]
         kinds: ["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"]
+    namespaces:
+      - "test"
+      - "default"
+    excludedNamespaces: []
+      # - "kube-system"      # Example: Policy will ignore this
+      # - "gatekeeper-system" # Example: Policy will ignore this
+      # - "config-management-system" 
   # Use an empty object if the template doesn't require specific keys
   parameters: {}
