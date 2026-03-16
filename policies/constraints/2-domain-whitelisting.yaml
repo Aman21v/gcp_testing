@@ -48,6 +48,7 @@ kind: K8sAllowedDomain
 metadata:
   name: allow-corporate-domains
 spec:
+  enforcementAction: deny
   match:
     kinds:
       - apiGroups: ["networking.k8s.io"]
