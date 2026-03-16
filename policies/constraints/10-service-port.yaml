@@ -3,6 +3,7 @@ kind: AllowedServicePortName
 metadata:
   name: require-http-grpc-port-names
 spec:
+  enforcementAction: deny
   match:
     kinds:
       - apiGroups: [""]
