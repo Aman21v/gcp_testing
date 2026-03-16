@@ -26,4 +26,7 @@ spec:
       - "test"
       - "default"
   parameters:
-    labels: ["team-id", "cost-center", "env"]
+    labels: 
+      - key: "owner"
+      - key: "env"
+ 
