@@ -3,6 +3,7 @@ kind: K8sRequiredResources
 metadata:
   name: require-cpu-memory-limits-requests
 spec:
+  enforcementAction: deny
   match:
     kinds:
       - apiGroups: [""]
