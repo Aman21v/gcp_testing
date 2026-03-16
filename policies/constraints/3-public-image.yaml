@@ -9,9 +9,13 @@ spec:
       - apiGroups: [""]
         kinds: ["Pod"]
     # Optional: Exclude system namespaces if needed
-    excludedNamespaces:
-      - kube-system
-      - gatekeeper-system
+    namespaces:
+      - "test"
+      - "default"
+    excludedNamespaces: []
+      # - "kube-system"      # Example: Policy will ignore this
+      # - "gatekeeper-system" # Example: Policy will ignore this
+      # - "config-management-system"
   parameters:
     repos:
       # Replace with your specific Google Artifact Registry or GCR paths
