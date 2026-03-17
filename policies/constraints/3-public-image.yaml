@@ -19,5 +19,5 @@ spec:
   parameters:
     repos:
       # Replace with your specific Google Artifact Registry or GCR paths
-      - "gcr.io/your-project-id/"
-      - "us-central1-docker.pkg.dev/your-project-id/"
+      - "gcr.io/*"
+      - "us-central1-docker.pkg.dev/*"
