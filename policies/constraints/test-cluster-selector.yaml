@@ -4,7 +4,7 @@ metadata:
   name: block-node-port-123
   annotations:
     # Apply only to clusters whose ConfigManagement.spec.clusterName is 'gke-prod-1' or 'gke-prod-2'.
-    configsync.gke.io/cluster-name-selector: test-cluster-03
+    configsync.gke.io/cluster-name-selector: test-cluster-1
 spec:
   enforcementAction: deny
   match:
