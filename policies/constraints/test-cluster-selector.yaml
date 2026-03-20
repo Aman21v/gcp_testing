@@ -3,8 +3,8 @@ kind: K8sBlockNodePort
 metadata:
   name: block-node-port-123
   annotations:
-    # Only applies to clusters matching this selector in your Git repo
-    configmanagement.gke.io/cluster-selector: resource-enforced-clusters
+    # Apply only to clusters whose ConfigManagement.spec.clusterName is 'gke-prod-1' or 'gke-prod-2'.
+    configsync.gke.io/cluster-name-selector: test-cluster-03
 spec:
   enforcementAction: deny
   match:
