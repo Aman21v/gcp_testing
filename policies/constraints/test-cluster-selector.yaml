@@ -1,0 +1,28 @@
+apiVersion: configmanagement.gke.io/v1
+kind: ClusterSelector
+metadata:
+  name: resource-enforced-clusters
+spec:
+  selector:
+    matchLabels:
+      # This label must exist on the Fleet Membership for the target clusters
+      policy-group: custom-template-enabled
+---
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sBlockNodePort
+metadata:
+  name: block-node-port
+  annotations:
+    # Only applies to clusters matching this selector in your Git repo
+    configmanagement.gke.io/cluster-selector: resource-enforced-clusters
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+    namespaces:
+      - "test"
+      - "default"
+    excludedNamespaces: []
