@@ -2,9 +2,9 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: AllowedServicePortName
 metadata:
   name: require-http-grpc-port-names
-  annotations:
-    # Only applies to clusters matching this selector in your Git repo
-    configmanagement.gke.io/cluster-selector: resource-enforced-clusters
+  # annotations:
+  #   # Only applies to clusters matching this selector in your Git repo
+  #   configmanagement.gke.io/cluster-selector: resource-enforced-clusters
 spec:
   enforcementAction: deny
   match:
