@@ -14,3 +14,8 @@ def calculate_shipping_cost(weight_kg: float, is_premium: bool) -> float:
     if is_premium:
         shipping_cost *= 0.9  # Apply a 10% discount for premium members
     return shipping_cost
+
+
+
+
+    return shipping_cost
