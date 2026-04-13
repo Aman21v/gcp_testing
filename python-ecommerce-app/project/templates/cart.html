@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Your Shopping Cart</h1>
+    {% if cart_items %}
+        <div class="currency-selector" style="margin-bottom: 20px; text-align: right;">
+            <form action="{{ url_for('frontend.set_currency') }}" method="post" style="display: inline;">
+                <label for="currency">Display prices in:</label>
+                <select name="currency" id="currency" onchange="this.form.submit()">
+                    <option value="USD" {% if current_currency == 'USD' %}selected{% endif %}>USD ($)</option>
+                    <option value="EUR" {% if current_currency == 'EUR' %}selected{% endif %}>EUR (€)</option>
+                    <option value="INR" {% if current_currency == 'INR' %}selected{% endif %}>INR (₹)</option>
+                </select>
+                {# Include a hidden input to help redirect back to cart if referrer is not reliable #}
+                {# This might not be strictly necessary with request.referrer but can be a fallback #}
+                {# <input type="hidden" name="next" value="{{ url_for('cart.view_cart') }}"> #}
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantityect</th>
+                    <th>Unit Price ({{ current_currency }})</th>
+                    <th>Total ({{ current_currency }})</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        <form action="{{ url_for('cart.update_cart') }}" method="post" style="display: inline;">
+                            <input type="hidden" name="product_id" value="{{ item.id }}">
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 50px;">
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                    <td>{{ "%.2f"|format(item.price_displayed) }}</td>
+                    <td>{{ "%.2f"|format(item.item_total_displayed) }}</td>
+                    <td>
+                        <form action="{{ url_for('cart.update_cart') }}" method="post" style="display: inline;">
+                            <input type="hidden" name="product_id" value="{{ item.id }}">
+                            <input type="hidden" name="quantity" value="0"> {# Signal to remove #}
+                            <button type="submit" class="remove-button">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <h3>Subtotal: {{ "%.2f"|format(items_total_displayed) }} {{ current_currency }}</h3>
+
+        {% if displayed_shipping_cost is not none %}
+            <p>Shipping Cost: {{ "%.2f"|format(displayed_shipping_cost) }} {{ current_currency }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('cart.calculate_cart_shipping') }}" method="post" style="margin-top: 10px; margin-bottom: 10px;">
+            <button type="submit" class="button">
+                {% if displayed_shipping_cost is not none %}
+                    Recalculate Shipping
+                {% else %}
+                    Calculate Shipping Cost
+                {% endif %}
+            </button>
+        </form>
+        <hr style="margin-top: 10px; margin-bottom: 10px;">
+        <h3>Grand Total: {{ "%.2f"|format(grand_total_displayed) }} {{ current_currency }}</h3>
+        <a href="{{ url_for('checkout.checkout') }}" class="button">Proceed to Checkout</a>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+{% endblock %}

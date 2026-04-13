@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome to our store!</h1>
+
+    <div class="currency-selector" style="margin-bottom: 20px; text-align: right;">
+        <form action="{{ url_for('frontend.set_currency') }}" method="post" style="display: inline;">
+            <label for="currency">Display prices in:</label>
+            <select name="currency" id="currency" onchange="this.form.submit()">
+                <option value="USD" {% if current_currency == 'USD' %}selected{% endif %}>USD ($)</option>
+                <option value="EUR" {% if current_currency == 'EUR' %}selected{% endif %}>EUR (€)</option>
+                <option value="INR" {% if current_currency == 'INR' %}selected{% endif %}>INR (₹)</option>
+            </select>
+        </form>
+    </div>
+
+
+    <h2>Today's Deals</h2>
+    {% for ad in ads %}
+        <div class="ad">{{ ad.text }}</div>
+    {% endfor %}
+
+    <h2>Recommended For You</h2>
+    <div class="product-list">
+        {% for pid, product_data in recommendations.items() %}
+        <div class="product">
+            <h3>{{ product_data.name }}</h3>
+            <p>
+                {% if product_data.displayed_price is not none and product_data.displayed_currency %}
+                    {{ "%.2f"|format(product_data.displayed_price) }} {{ product_data.displayed_currency }}
+                {% elif product_data.price is not none and product_data.currency %}
+                    {{ "%.2f"|format(product_data.price) }} {{ product_data.currency }} (Original)
+                {% else %}
+                    Price not available
+                {% endif %}
+            </p>
+
+            {# Simplified Add to Cart Form #}
+            <form action="{{ url_for('cart.add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="{{ pid }}">
+                <input type="hidden" name="quantity" value="1"> {# Always add 1 by default from home #}
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
