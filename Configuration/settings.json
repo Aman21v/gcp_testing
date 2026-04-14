@@ -1,0 +1,7 @@
+"agents": {
+    "overrides": {
+      "browser_agent": {
+        "enabled": true
+      }
+    }
+  }
