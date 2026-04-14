@@ -30,7 +30,7 @@
   }
 }
 
-##
+## for Jira and github enterprise
 {
   "mcpServers": {
     "MyCorpJira": {
