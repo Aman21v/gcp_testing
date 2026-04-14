@@ -29,3 +29,18 @@
     }
   }
 }
+
+##
+{
+  "mcpServers": {
+    "MyCorpJira": {
+      "type": "http",
+      "httpUrl": "https://my-internal-test.com/mcp"
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  },
+  "selectedAuthType": "oauth-personal"
+}
+
