@@ -1,3 +1,26 @@
+## Sample for mcp servers
+{
+  "mcpServers": {
+            "github": {
+            "httpUrl": "https://api.githubcopilot.com/mcp/",
+            "headers": {
+                "Authorization": "Bearer $GITHUB_MCP_PAT"
+            }
+        },
+    "weather": {
+      "command": "/Users/aamanverma/.local/bin/uv",
+      "args": [
+        "--directory",
+        "/Users/aamanverma/Documents/GCA_Demo/node-weather-mcp",
+        "run",
+        "weather_server.py"
+      ]
+    }
+  }
+}  
+
+## adding and enabling subagents
+{
 "agents": {
     "overrides": {
       "browser_agent": {
@@ -5,3 +28,4 @@
       }
     }
   }
+}
