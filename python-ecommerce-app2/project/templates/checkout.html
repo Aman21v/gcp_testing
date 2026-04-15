@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Checkout</h1>
+
+    <div class="checkout-summary">
+        <h3>Order Summary</h3>
+        <p>Total Cart Value: <strong>${{ "%.2f"|format(cart_total) }}</strong></p>
+        <p><small>(Shipping and taxes will be calculated at the next step)</small></p>
+    </div>
+
+    <hr>
+
+    <div class="checkout-form">
+        <h3>Shipping and Payment Information</h3>
+        <form action="{{ url_for('checkout.checkout') }}" method="post">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Shipping Address</label>
+                <textarea id="address" name="address" rows="3" required class="form-control"></textarea>
+            </div>
+            
+            <fieldset>
+                <legend>Payment Details</legend>
+                 <div class="form-group">
+                    <label for="card_number">Card Number</label>
+                    <input type="text" id="card_number" name="number" placeholder="XXXX-XXXX-XXXX-XXXX" required class="form-control">
+                </div>
+                 <div class="form-group">
+                    <label for="card_expiry">Expiry (MM/YY)</label>
+                    <input type="text" id="card_expiry" name="expiry" placeholder="MM/YY" required class="form-control">
+                </div>
+                 <div class="form-group">
+                    <label for="card_cvc">CVC</label>
+                    <input type="text" id="card_cvc" name="cvc" placeholder="123" required class="form-control">
+                </div>
+            </fieldset>
+
+            <button type="submit" class="button-primary">Place Order</button>
+        </form>
+    </div>
+
+{% endblock %}

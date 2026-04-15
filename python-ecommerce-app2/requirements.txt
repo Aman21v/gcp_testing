@@ -1,0 +1,6 @@
+Flask==3.0.3
+Flask-Redis==0.4.0
+
+
+# pip3 install Flask-Redis
+

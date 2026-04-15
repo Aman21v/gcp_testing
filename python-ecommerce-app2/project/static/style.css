@@ -1,0 +1,30 @@
+body {
+    background-color: lightblue; /* Changed to light blue */
+    font-family: sans-serif; /* Added a default font for better appearance */
+}
+
+.container {
+    max-width: 960px; /* Adjust as needed */
+    margin: 0 auto; /* Centers the container */
+    padding: 20px; /* Adds some spacing inside the container */
+}
+
+nav {
+    text-align: center; /* Centers the navigation links */
+    padding: 10px 0; /* Adds some padding above and below the nav */
+}
+
+nav a {
+    font-size: 1.2em; /* Makes the font size 20% larger than the default */
+    margin: 0 10px; /* Adds some space between the links */
+    padding: 8px 15px; /* Adds padding inside the links to make them boxy */
+    background-color: #4CAF50; /* Example background color (green) */
+    color: white; /* Text color */
+    text-decoration: none; /* Removes underline from links */
+    border-radius: 5px; /* Optional: adds rounded corners */
+}
+
+nav a:hover {
+    background-color: #45a049; /* Darker green on hover */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adds a subtle shadow effect */
+}
