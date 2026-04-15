@@ -18,26 +18,18 @@
 
 <html>
 <head>
-    <title>Roman Numerals</title>
+    <title>Temperature Conversion</title>
 </head>
 <body>
-    <h1>Roman Numerals</h1>
+    <h1>Temperature Conversion</h1>
 
-    <form action="/convert" method="post">
-        <label for="number">Enter a number: </label>
-        <input type="text" name="number" id="number" required />
+    <form action="/convert_temp" method="post">
+        <input type="hidden" name="direction" value="{{ direction }}">
+        <label for="temperature">Enter temperature in {% if direction == 'f2c' %}Fahrenheit{% else %}Celsius{% endif %}: </label>
+        <input type="number" step="any" name="temperature" id="temperature" required />
         <button>Convert!</button>
     </form>
 
-    <hr>
-    
-    <h1>Temperature Conversion</h1>
-    <form action="/temp_form" method="get">
-        <input type="radio" id="f2c" name="direction" value="f2c" checked>
-        <label for="f2c">Fahrenheit to Celsius</label><br>
-        <input type="radio" id="c2f" name="direction" value="c2f">
-        <label for="c2f">Celsius to Fahrenheit</label><br>
-        <button>Select</button>
-    </form>
+    <p><a href="/">Return to home page.</a></p>
 </body>
 </html>

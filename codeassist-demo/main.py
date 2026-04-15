@@ -31,5 +31,31 @@ def convert():
     return render_template("convert.html", number=number, roman=roman)
 
 
+@app.route("/temp_form", methods=["GET"])
+def temp_form():
+    direction = request.args.get("direction", "f2c")
+    return render_template("temp_form.html", direction=direction)
+
+
+@app.route("/convert_temp", methods=["POST"])
+def convert_temp():
+    try:
+        temperature = float(request.form["temperature"])
+        direction = request.form["direction"]
+        
+        if direction == "f2c":
+            converted = (temperature - 32) * 5.0 / 9.0
+            msg = f"{temperature}°F is {converted:.2f}°C"
+        elif direction == "c2f":
+            converted = (temperature * 9.0 / 5.0) + 32
+            msg = f"{temperature}°C is {converted:.2f}°F"
+        else:
+            msg = "Invalid conversion direction selected."
+    except ValueError:
+        msg = "Invalid temperature entered."
+        
+    return render_template("convert_temp.html", msg=msg)
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
